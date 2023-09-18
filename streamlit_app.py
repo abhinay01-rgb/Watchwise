@@ -3,7 +3,35 @@ from streamlit_chat import message
 from streamlit_extras.colored_header import colored_header
 from streamlit_extras.add_vertical_space import add_vertical_space
 from hugchat import hugchat
+from hugchat import hugchat
+from hugchat.login import Login
 
+# Log in to huggingface and grant authorization to huggingchat
+sign = Login(email, passwd)
+cookies = sign.login()
+
+# Save cookies to the local directory
+cookie_path_dir = "./cookies_snapshot"
+sign.saveCookiesToDir(cookie_path_dir)
+
+# Load cookies when you restart your program:
+# sign = login(email, None)
+# cookies = sign.loadCookiesFromDir(cookie_path_dir) # This will detect if the JSON file exists, return cookies if it does and raise an Exception if it's not.
+
+# Create a ChatBot
+chatbot = hugchat.ChatBot(cookies=cookies.get_dict())  # or cookie_path="usercookies/<email>.json"
+print(chatbot.chat("Hi!"))
+
+# Create a new conversation
+id = chatbot.new_conversation()
+chatbot.change_conversation(id)
+
+# Get conversation list
+conversation_list = chatbot.get_conversation_list()
+
+# Switch model (default: meta-llama/Llama-2-70b-chat-hf. )
+chatbot.switch_llm(0) # Switch to `OpenAssistant/oasst-sft-6-llama-30b-xor`
+chatbot.switch_llm(1) # Switch to `meta-llama/Llama-2-70b-chat-hf`
 st.set_page_config(page_title="Watchwise Chatbot")
 
 # Sidebar contents
