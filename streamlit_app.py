@@ -4,14 +4,14 @@ from streamlit_extras.colored_header import colored_header
 from streamlit_extras.add_vertical_space import add_vertical_space
 from hugchat import hugchat
 
-st.set_page_config(page_title="Watchwise")
+st.set_page_config(page_title="Watchwise Chatbot")
 
 # Sidebar contents
 with st.sidebar:
-    st.title('Watchwise')
-    st.markdown('''
-    add_vertical_space(5)
+    st.title('🤗💬Watchwise')
     
+    add_vertical_space(5)
+    st.write('Made with ❤️')
 
 # Generate empty lists for generated and past.
 ## generated stores AI generated responses
